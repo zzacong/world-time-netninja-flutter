@@ -15,7 +15,6 @@ class _LoadingState extends State<Loading> {
     WorldTime w = WorldTime(
         location: 'Berlin', flag: 'germany.png', region: 'Europe/Berlin');
     await w.getTime();
-    print(w.time);
     setState(() => time = w.time ?? 'null');
   }
 

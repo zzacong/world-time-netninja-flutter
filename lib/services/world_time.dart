@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer' as d;
 
 import 'package:http/http.dart' as http;
 
@@ -13,19 +14,24 @@ class WorldTime {
   WorldTime({required this.location, required this.flag, required this.region});
 
   Future<void> getTime() async {
-    // make the request
-    var url = Uri.parse('$baseUrl$region');
-    var res = await http.get(url);
-    Map data = jsonDecode(res.body);
-    // print(data)
+    try {
+      // make the request
+      var url = Uri.parse('$baseUrl$region');
+      var res = await http.get(url);
+      Map data = jsonDecode(res.body);
+      // print(data)
 
-    // get the properties
-    var datetime = data['datetime'];
-    var offset = data['utc_offset'].substring(0, 3);
+      // get the properties
+      var datetime = data['datetime'];
+      var offset = data['utc_offset'].substring(0, 3);
 
-    // create DateTime object
-    var now = DateTime.parse(datetime);
-    now = now.add(Duration(hours: int.parse(offset)));
-    time = now.toString();
+      // create DateTime object
+      var now = DateTime.parse(datetime);
+      now = now.add(Duration(hours: int.parse(offset)));
+      time = now.toString();
+    } catch (e) {
+      d.log('error: $e');
+      time = 'could not get time data';
+    }
   }
 }
