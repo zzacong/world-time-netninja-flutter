@@ -7,10 +7,11 @@ import 'package:intl/intl.dart' as intl;
 class WorldTime {
   final String baseUrl = 'https://worldtimeapi.org/api/timezone/';
 
-  String location; // location name for the UI
+  final String location; // location name for the UI
+  final String flag; // url to an asset flag icon
+  final String region; // timezone region
   String? time; // the time in that location
-  String flag; // url to an asset flag icon
-  String region; // timezone region
+  bool isDay = true; // daytime or nighttime
 
   WorldTime({required this.location, required this.flag, required this.region});
 
@@ -29,6 +30,9 @@ class WorldTime {
       // create DateTime object
       var now = DateTime.parse(datetime);
       now = now.add(Duration(hours: int.parse(offset)));
+
+      // set the time property
+      isDay = now.hour > 6 && now.hour < 20;
       time = intl.DateFormat.jm().format(now);
     } catch (e) {
       d.log('error: $e');
