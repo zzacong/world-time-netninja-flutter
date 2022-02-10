@@ -8,6 +8,20 @@ class ChooseLocation extends StatefulWidget {
 }
 
 class _ChooseLocationState extends State<ChooseLocation> {
+  void getData() async {
+    // Simulate network request for a username
+    // String username =
+    //     await Future.delayed(const Duration(milliseconds: 3000), () {
+    //   return 'yoshi';
+    // });
+  }
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +31,6 @@ class _ChooseLocationState extends State<ChooseLocation> {
         title: const Text('Choose a location'),
         elevation: 0,
       ),
-      body: const Text('location screen'),
     );
   }
 }
