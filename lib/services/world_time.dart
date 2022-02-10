@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer' as d;
 
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart' as intl;
 
 class WorldTime {
   final String baseUrl = 'https://worldtimeapi.org/api/timezone/';
@@ -28,7 +29,7 @@ class WorldTime {
       // create DateTime object
       var now = DateTime.parse(datetime);
       now = now.add(Duration(hours: int.parse(offset)));
-      time = now.toString();
+      time = intl.DateFormat.jm().format(now);
     } catch (e) {
       d.log('error: $e');
       time = 'could not get time data';
