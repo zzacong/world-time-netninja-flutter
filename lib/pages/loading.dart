@@ -17,6 +17,7 @@ class _LoadingState extends State<Loading> {
         flag: 'germany.png',
         region: 'Australia/Melbourne');
     await w.getTime();
+    // Navigator.pushReplacementNamed(context, '/location', arguments: w);
     Navigator.pushReplacementNamed(context, '/home', arguments: w);
   }
 

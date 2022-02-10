@@ -16,6 +16,12 @@ class WorldTime {
   WorldTime({required this.location, required this.flag, required this.region});
 
   Future<void> getTime() async {
+    // Simulate network request for a username
+    // String username =
+    //     await Future.delayed(const Duration(milliseconds: 3000), () {
+    //   return 'yoshi';
+    // });
+
     try {
       // make the request
       var url = Uri.parse('$baseUrl$region');

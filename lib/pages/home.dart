@@ -9,13 +9,14 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  WorldTime? data;
+
   @override
   Widget build(BuildContext context) {
-    final data = ModalRoute.of(context)!.settings.arguments as WorldTime;
-    // print(data);
+    data ??= ModalRoute.of(context)!.settings.arguments as WorldTime;
 
-    final bgImage = data.isDay ? 'day.png' : 'night.png';
-    final bgColor = data.isDay ? Colors.blue : Colors.indigo.shade700;
+    final bgImage = data!.isDay ? 'day.png' : 'night.png';
+    final bgColor = data!.isDay ? Colors.blue : Colors.indigo[700];
 
     return Scaffold(
       backgroundColor: bgColor,
@@ -32,7 +33,11 @@ class _HomeState extends State<Home> {
             child: Column(
               children: <Widget>[
                 TextButton.icon(
-                  onPressed: () => Navigator.pushNamed(context, '/location'),
+                  onPressed: () async {
+                    var res = await Navigator.pushNamed(context, '/location')
+                        as WorldTime;
+                    setState(() => data = res);
+                  },
                   icon: Icon(Icons.edit_location, color: Colors.grey[300]),
                   label: Text(
                     'Edit location',
@@ -45,7 +50,7 @@ class _HomeState extends State<Home> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text(data.location,
+                    Text(data?.location ?? '',
                         style: const TextStyle(
                           fontSize: 28,
                           letterSpacing: 2,
@@ -55,7 +60,7 @@ class _HomeState extends State<Home> {
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  data.time ?? '',
+                  data?.time ?? '',
                   style: const TextStyle(
                     fontSize: 66,
                     color: Colors.white,
